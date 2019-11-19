@@ -1,7 +1,7 @@
 //========================================================================
-// GLFW 3.3 Cocoa - www.glfw.org
+// GLFW 3.4 Cocoa - www.glfw.org
 //------------------------------------------------------------------------
-// Copyright (c) 2009-2016 Camilla Löwy <elmindreda@glfw.org>
+// Copyright (c) 2009-2019 Camilla Löwy <elmindreda@glfw.org>
 // Copyright (c) 2012 Torsten Walluhn <tw@mad-cad.net>
 //
 // This software is provided 'as-is', without any express or implied
@@ -23,6 +23,8 @@
 // 3. This notice may not be removed or altered from any source
 //    distribution.
 //
+//========================================================================
+// It is fine to use C99 in this file because it will not be built with VS
 //========================================================================
 
 #include "internal.h"
@@ -228,6 +230,19 @@ static void matchCallback(void* context,
                 case kHIDUsage_GD_Select:
                 case kHIDUsage_GD_Start:
                     target = buttons;
+                    break;
+            }
+        }
+        else if (page == kHIDPage_Simulation)
+        {
+            switch (usage)
+            {
+                case kHIDUsage_Sim_Accelerator:
+                case kHIDUsage_Sim_Brake:
+                case kHIDUsage_Sim_Throttle:
+                case kHIDUsage_Sim_Rudder:
+                case kHIDUsage_Sim_Steering:
+                    target = axes;
                     break;
             }
         }
