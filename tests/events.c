@@ -286,6 +286,19 @@ static void error_callback(int error, const char* description)
     fprintf(stderr, "Error: %s\n", description);
 }
 
+static const char* get_character_string(int codepoint)
+{
+	// This assumes UTF-8, which is stupid
+	static char result[6 + 1];
+
+	int length = wctomb(result, codepoint);
+	if (length == -1)
+		length = 0;
+
+	result[length] = '\0';
+	return result;
+}
+
 static void window_pos_callback(GLFWwindow* window, int x, int y)
 {
     Slot* slot = glfwGetWindowUserPointer(window);
@@ -492,7 +505,7 @@ static void ime_callback(GLFWwindow* window) {
            counter++, slot->number, glfwGetTime());
 }
 
-static void drop_callback(GLFWwindow* window, int count, const char[] paths)
+static void drop_callback(GLFWwindow* window, int count, const char* paths[])
 {
     int i;
     Slot* slot = glfwGetWindowUserPointer(window);
