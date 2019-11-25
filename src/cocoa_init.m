@@ -518,6 +518,10 @@ int _glfwPlatformInit(void)
                name:NSTextInputContextKeyboardSelectionDidChangeNotification
              object:nil];
 
+    // create empyty keyname
+    _glfw.ns.emptyKeyname[0] = ' ';
+    _glfw.ns.emptyKeyname[1] = 0;
+    
     createKeyTables();
 
     _glfw.ns.eventSource = CGEventSourceCreate(kCGEventSourceStateHIDSystemState);

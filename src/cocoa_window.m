@@ -1574,6 +1574,12 @@ const char* _glfwPlatformGetScancodeName(int scancode)
 
     const int key = _glfw.ns.keycodes[scancode];
 
+    // Japanese Kana key's keycode is -1 at least
+    if(key < 0)
+    {
+        return _glfw.ns.emptyKeyname;
+    }
+
     UInt32 deadKeyState = 0;
     UniChar characters[4];
     UniCharCount characterCount = 0;
